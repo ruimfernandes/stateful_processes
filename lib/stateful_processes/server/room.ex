@@ -2,16 +2,16 @@ defmodule StatefulProcesses.Server.Room do
   use GenServer, restart: :temporary
 
   def start_link(name) do
-    IO.inspect(name, label: "vai start link")
+    IO.inspect(name, label: "Started a process for")
     GenServer.start_link(StatefulProcesses.Server.Room, name, name: via_tuple(name))
   end
 
   def add_message(room, new_message) do
-    GenServer.cast(room, {:add_message, new_message})
+    GenServer.cast(via_tuple(room), {:add_message, new_message})
   end
 
-  def messages(room) do
-    GenServer.call(room, :messages)
+  def get_messages(room) do
+    GenServer.call(via_tuple(room), :messages)
   end
 
   defp via_tuple(name) do
@@ -20,7 +20,6 @@ defmodule StatefulProcesses.Server.Room do
 
   @impl GenServer
   def init(name) do
-    IO.puts("Starting room server for #{name}")
     {:ok, {name, []}}
   end
 

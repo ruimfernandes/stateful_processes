@@ -6,15 +6,15 @@ defmodule StatefulProcessesWeb.RoomController do
   action_fallback StatefulProcessesWeb.FallbackController
 
   def index(conn, _params) do
-    rooms = []
+    rooms = Server.list_rooms()
     render(conn, :index, rooms: rooms)
   end
 
   def create(conn, %{"name" => name}) do
     room = Server.start_room(name)
 
-      conn
-      |> put_status(:created)
-      |> render(:show, room: room)
+    conn
+    |> put_status(:created)
+    |> render(:show, room: room)
   end
 end

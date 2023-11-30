@@ -1,6 +1,5 @@
 defmodule StatefulProcesses.Server do
   def start_link() do
-    IO.puts("Starting server supervisor")
     DynamicSupervisor.start_link(name: __MODULE__, strategy: :one_for_one)
   end
 
@@ -20,7 +19,12 @@ defmodule StatefulProcesses.Server do
   end
 
   def list_rooms() do
-    :ok
+    __MODULE__
+    |> DynamicSupervisor.which_children()
+    |> Enum.map(fn {_, pid, _, _} ->
+      {_, name} = StatefulProcesses.ProcessRegistry |> Registry.keys(pid) |> List.first()
+      %{pid: pid_to_string(pid), name: name}
+    end)
   end
 
   defp start_child(room_name) do
