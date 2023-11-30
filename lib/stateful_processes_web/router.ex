@@ -16,8 +16,12 @@ defmodule StatefulProcessesWeb.Router do
 
   scope "/", StatefulProcessesWeb do
     pipe_through :browser
+  end
 
-    get "/", PageController, :home
+  scope "/api", StatefulProcessesWeb do
+    pipe_through :api
+
+    resources "/rooms", RoomController, only: [:index, :create]
   end
 
   # Other scopes may use custom stacks.

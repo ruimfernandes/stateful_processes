@@ -17,7 +17,9 @@ defmodule StatefulProcesses.Application do
       # Start a worker by calling: StatefulProcesses.Worker.start_link(arg)
       # {StatefulProcesses.Worker, arg},
       # Start to serve requests, typically the last entry
-      StatefulProcessesWeb.Endpoint
+      StatefulProcessesWeb.Endpoint,
+      StatefulProcesses.Server,
+      StatefulProcesses.ProcessRegistry
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
