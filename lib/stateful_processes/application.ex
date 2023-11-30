@@ -10,7 +10,8 @@ defmodule StatefulProcesses.Application do
     children = [
       StatefulProcessesWeb.Telemetry,
       StatefulProcesses.Repo,
-      {DNSCluster, query: Application.get_env(:stateful_processes, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:stateful_processes, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: StatefulProcesses.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: StatefulProcesses.Finch},

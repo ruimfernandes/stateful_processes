@@ -5,12 +5,8 @@ defmodule StatefulProcessesWeb.RoomControllerTest do
 
   alias StatefulProcesses.Server.Room
 
-  @create_attrs %{
-
-  }
-  @update_attrs %{
-
-  }
+  @create_attrs %{}
+  @update_attrs %{}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
